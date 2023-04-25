@@ -2,6 +2,8 @@ package src.main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Menu extends JFrame {
     private JButton playButton;
@@ -25,6 +27,14 @@ public class Menu extends JFrame {
         playButton.setForeground(new Color(0x242424));
         playButton.setFocusPainted(false);
         playButton.setBounds(540,520,200,60);
+    
+        playButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new Modes();
+            }
+        });
        
         
 

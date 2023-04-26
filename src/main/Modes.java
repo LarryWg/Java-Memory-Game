@@ -2,6 +2,8 @@ package src.main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Modes extends JFrame{
     private JButton numberButton, sequenceButton;
@@ -32,6 +34,14 @@ public class Modes extends JFrame{
         sequenceButton.setForeground(new Color(0x242424));
         sequenceButton.setFocusPainted(false);
         sequenceButton.setBounds(480, 320, 330, 60);
+        sequenceButton.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e){
+                new SequenceMemory();
+                dispose();
+            }
+        });
 
         JPanel modesPanel = new JPanel(null);
         modesPanel.setOpaque(false);

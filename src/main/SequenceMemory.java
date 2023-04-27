@@ -1,5 +1,6 @@
 package src.main;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -45,12 +46,13 @@ public class SequenceMemory implements ActionListener {
         labelConstraints.gridx = 1;
         labelConstraints.gridy = 0;
         labelConstraints.gridwidth = 1;
-        labelConstraints.insets = new Insets(-120, -60, 0, 0);
+        labelConstraints.insets = new Insets(-120, -35, 0, 0);
         panel.add(levelLabel, labelConstraints);
         
 
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(MARGIN+70, MARGIN, MARGIN-70, MARGIN);
+
         for (int i = 0; i < 9; i++){
             JButton button = new JButton("");
             button.setActionCommand("");
@@ -58,7 +60,7 @@ public class SequenceMemory implements ActionListener {
             button.setPreferredSize(new Dimension(BUTTON_SIZE, BUTTON_SIZE));
             c.gridx = i%3;
             c.gridy = i/3;
-            button.setBackground(new Color(0x2573C1));
+            button.setBackground(Color.BLUE);
             button.setFocusPainted(false);
             button.setBorderPainted(false);
             panel.add(button, c);
@@ -71,6 +73,33 @@ public class SequenceMemory implements ActionListener {
         frame.setBackground(Color.BLUE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
+        frame.setLocationRelativeTo(null);\
+
+
+
+    }
+
+    public void start(){
+    }
+
+    public void addButtonToPattern(){
+        
+    }
+
+    public void showPattern(){
+
+    }
+
+    public void buttonClicked(){
+
+
+    }
+
+    public void changeButtonColour(){
+
+    }
+
+    public void actionPerformed(ActionEvent e){
+
     }
 }

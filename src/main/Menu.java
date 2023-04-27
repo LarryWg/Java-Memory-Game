@@ -35,8 +35,6 @@ public class Menu extends JFrame {
                 new Modes();
             }
         });
-       
-        
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
         buttonPanel.setOpaque(false);

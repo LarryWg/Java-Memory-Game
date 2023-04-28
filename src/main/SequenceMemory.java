@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-public class SequenceMemory implements ActionListener {
+public class SequenceMemory extends JFrame implements ActionListener {
     private final int BUTTON_SIZE = 125;
     private final int MARGIN = 10;
 
-    private JFrame frame;
-    private JPanel panel;
+    
+    private JPanel sequencePanel;
     private ArrayList<Integer> pattern = new ArrayList<Integer>(); 
     private ArrayList<JButton> buttons = new ArrayList<JButton>();
     private ArrayList<Integer> buttonIds = new ArrayList<Integer>(); 
@@ -38,19 +38,18 @@ public class SequenceMemory implements ActionListener {
         buttonIds.add(9);
 
         SwingUtilities.invokeLater(() -> {
-            frame = new JFrame("Sequence Memory");
-            panel = new JPanel(new GridBagLayout());
-            panel.setBackground(new Color(0x007AFF));
+            sequencePanel = new JPanel(new GridBagLayout());
+            sequencePanel.setBackground(new Color(0x007AFF));
         
             GridBagConstraints labelConstraints = new GridBagConstraints();
-            JLabel levelLabel = new JLabel("Level:" + level);
+            JLabel levelLabel = new JLabel("Level: " + level);
             levelLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 31));
             levelLabel.setForeground(new Color(0xaacfed));
             labelConstraints.gridx = 1;
             labelConstraints.gridy = 0;
             labelConstraints.gridwidth = 1;
             labelConstraints.insets = new Insets(-120, -35, 0, 0);
-            panel.add(levelLabel, labelConstraints);
+            sequencePanel.add(levelLabel, labelConstraints);
 
             GridBagConstraints c = new GridBagConstraints();
             c.insets = new Insets(MARGIN+70, MARGIN, MARGIN-70, MARGIN);
@@ -65,17 +64,16 @@ public class SequenceMemory implements ActionListener {
                 button.setBackground(new Color(0x2573c1));
                 button.setBorderPainted(false);
                 button.setFocusPainted(true);
-                panel.add(button, c);
+                sequencePanel.add(button, c);
                 buttons.add(button);
             }
 
 
-            frame.add(panel);
-            frame.pack();
-            frame.setSize(1280, 720);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
-            frame.setLocationRelativeTo(null);
+            setContentPane(sequencePanel);
+            setSize(1280, 720);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setVisible(true);
+            setLocationRelativeTo(null);
 
 
             start();
@@ -139,7 +137,7 @@ public class SequenceMemory implements ActionListener {
                 displayingPattern = false;
                 level++;
                 SwingUtilities.invokeLater(() -> {
-                    JLabel levelLabel = (JLabel) panel.getComponent(0);
+                    JLabel levelLabel = (JLabel) sequencePanel.getComponent(0);
                     levelLabel.setText("Level: " + level);
                 });
                 new Thread(new Runnable(){
@@ -181,10 +179,10 @@ public class SequenceMemory implements ActionListener {
             public void run(){
                 try{
                     Thread.sleep(500);
-                    frame.setTitle("Game Over");
+                    setTitle("Game Over");
                     level = 1;
                     SwingUtilities.invokeLater(() -> {
-                        JLabel levelLabel = (JLabel) panel.getComponent(0);
+                        JLabel levelLabel = (JLabel) sequencePanel.getComponent(0);
                         levelLabel.setText("Level: " + level);
                     });
                 } catch(InterruptedException e){

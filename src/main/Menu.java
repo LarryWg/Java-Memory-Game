@@ -31,8 +31,8 @@ public class Menu extends JFrame {
         playButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
-                new Modes();
+                setContentPane(new Modes().getContentPane());
+                revalidate();
             }
         });
 
@@ -51,5 +51,8 @@ public class Menu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
 
+    }
+
+    public Menu(String string) {
     }
 }

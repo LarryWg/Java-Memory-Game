@@ -28,6 +28,12 @@ public class Modes extends JFrame{
         numberButton.setForeground(new Color(0x242424));
         numberButton.setFocusPainted(false);
         numberButton.setBounds(480,500,330,60);
+        numberButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                new NumberMemory();
+            }
+        });
 
         
         sequenceButton = new JButton("Sequence Memory");
@@ -53,8 +59,6 @@ public class Modes extends JFrame{
         modesPanel.add(sequenceButton);
 
         setContentPane(modesPanel);
-
-        
 
 
 

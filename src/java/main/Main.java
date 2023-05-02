@@ -1,8 +1,8 @@
-package src.main;
+package src.java.main;
 
 import javax.swing.SwingUtilities;
 
-public class MemoryTest{
+public class Main{
   
   public static void main(String[] args){
     SwingUtilities.invokeLater(new Runnable(){

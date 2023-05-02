@@ -31,8 +31,12 @@ public class Menu extends JFrame {
         playButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                setContentPane(new Modes().getContentPane());
-                revalidate();
+                getContentPane().removeAll();
+                getContentPane().add(new Modes());
+                validate();
+                repaint();
+                
+                
             }
         });
 
@@ -55,4 +59,5 @@ public class Menu extends JFrame {
 
     public Menu(String string) {
     }
+    
 }

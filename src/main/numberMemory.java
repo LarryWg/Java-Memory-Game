@@ -5,38 +5,35 @@ import java.awt.*;
 
 
 
-public class NumberMemory extends JFrame{
-    
-    public NumberMemory(){
-        super("Number Memory");
-        setSize(1280, 720);
-        setBackground(new Color(0x007AFF));
-        setLocationRelativeTo(null);
-        setLayout(null);
+public class NumberMemory extends JPanel{
 
-        JLabel titleLabel = new JLabel("pASDPONNNNNNNNWFE");
-        titleLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 300));
+    public NumberMemory(){
+        
+        setSize(1280, 720);
+    
+
+        JLabel titleLabel = new JLabel("Number");
+        titleLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 100));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setBounds(400,100,500,400);
         
         
 
         JPanel panel = new JPanel();
-        
+        panel.setOpaque(false);
+        panel.setLayout(null);
         panel.add(titleLabel);
-        panel.setBackground(new Color(0x007AFF));
-        setContentPane(panel);
+
+        setOpaque(false);
+        setLayout(new BorderLayout());
+        add(panel, BorderLayout.CENTER);
+        
+
+
+        
 
 
 
-
-
-
-
-
-
-
-
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
 

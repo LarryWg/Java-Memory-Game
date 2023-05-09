@@ -6,12 +6,17 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 
 
-public class NumberMemory extends JPanel{
-    JLabel numberLabel = new JLabel();
-    JLabel timerLabel = new JLabel();
-    JLabel askLabel = new JLabel();
+public class NumberMemory extends JPanel implements ActionListener {
+    JLabel numberLabel = new JLabel("", SwingConstants.CENTER);
+    JLabel timerLabel = new JLabel("", SwingConstants.CENTER);
+    JLabel askLabel = new JLabel("", SwingConstants.CENTER);
     JButton submitButton = new JButton();
-    JTextField inputText = new JTextField(16);
+    JTextField inputText = new JTextField(20);
+    JLabel answerLabel = new JLabel("", SwingConstants.CENTER);
+    JButton nextButton = new JButton();
+
+    int frameWidth;
+    int frameHeight;
 
     Timer timer;	
     int second, minute;
@@ -19,6 +24,7 @@ public class NumberMemory extends JPanel{
     DecimalFormat dFormat = new DecimalFormat("00");
     int level;
     int currentNum;
+    int submitNum;
 
 
     public NumberMemory(){
@@ -29,10 +35,11 @@ public class NumberMemory extends JPanel{
 
 
     private void start(){
-
         level = 1;    
-
-        setSize(1280, 720);
+        frameWidth = 1280;
+        frameHeight = 720;
+        
+        setSize(frameWidth, frameHeight);
         JPanel panel = new JPanel();
         panel.setOpaque(false);
         panel.setLayout(null);
@@ -40,18 +47,69 @@ public class NumberMemory extends JPanel{
         setOpaque(false);
         setLayout(new BorderLayout());
         add(panel, BorderLayout.CENTER);
-        
-        showNum(level, panel);         
-        //askNum(panel);
+    
+        numberLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 100));
+        numberLabel.setForeground(Color.WHITE);
+        numberLabel.setBounds(0,100,frameWidth,400);
+        setNum();
 
+        timerLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 50));
+        timerLabel.setForeground(Color.GRAY);
+        timerLabel.setBounds(0,250,frameWidth,400);
+        
+        
+        askLabel.setText("What was the number?");
+        askLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 50));
+        askLabel.setForeground(Color.WHITE);
+        askLabel.setBounds(0,0,frameWidth,400);
+
+        inputText.setVisible(false);
+        inputText.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
+        inputText.setForeground(Color.WHITE);
+        inputText.setBackground(Color.GRAY);
+        inputText.setBounds(frameWidth/2-100,300,200,50);
+
+        submitButton.setVisible(false);
+        submitButton.setText("Submit");
+        submitButton.setActionCommand("submit");
+        submitButton.setFont(new Font("Helvetica Neue", Font.BOLD, 20));
+        submitButton.setBackground(new Color(255,209,84));
+        submitButton.setForeground(Color.BLACK);
+        submitButton.setBounds(frameWidth/2-50,400,100,50);
+        submitButton.addActionListener(this);
+
+        answerLabel.setVisible(false);
+        answerLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 30));
+        answerLabel.setForeground(Color.WHITE);
+        answerLabel.setBounds(0,-100,frameWidth,frameHeight);
+
+        nextButton.setVisible(false);
+        nextButton.setText("Next");
+        nextButton.setActionCommand("next");
+        nextButton.setFont(new Font("Helvetica Neue", Font.BOLD, 20));
+        nextButton.setBackground(new Color(255,209,84));
+        nextButton.setForeground(Color.BLACK);
+        nextButton.setBounds(frameWidth/2-75,400,150,50);
+        nextButton.addActionListener(this);
+ 
+        panel.add(numberLabel);
+        panel.add(timerLabel);
+        panel.add(askLabel);
+        panel.add(inputText);
+        panel.add(submitButton);    
+        panel.add(answerLabel);    
+        panel.add(nextButton); 
+
+		resetTimer();
     }
 
-    private void showNum(int level, JPanel panel){
-        System.out.println("In show num");
-        int randomInt;
-        int min, max;
 
-        min = 0; max = 00;
+    // Generate a random value in int from min to max
+    private void setNum() {
+
+        int min = 0; 
+        int max = 00;
+        
         switch (level) {
             case 1:
                 min = 0; max = 9;
@@ -69,72 +127,8 @@ public class NumberMemory extends JPanel{
                 min = 10000; max = 99999;
                 break;
         }
-        randomInt = getNum(min, max); 
-
-        numberLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 100));
-        numberLabel.setForeground(Color.WHITE);
-        numberLabel.setBounds(400,100,500,400);
-
-        timerLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 50));
-        timerLabel.setForeground(Color.GRAY);
-        timerLabel.setBounds(400,250,500,400);
-        
-        askLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 50));
-        askLabel.setForeground(Color.WHITE);
-        askLabel.setBounds(250,0,700,400);
-
-
-        inputText.setVisible(false);
-        inputText.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
-        inputText.setForeground(Color.WHITE);
-        inputText.setBackground(Color.GRAY);
-        inputText.setBounds(250,300,200,50);
-
-        submitButton.setVisible(false);
-        submitButton.setText("Submit");
-        submitButton.setFont(new Font("Helvetica Neue", Font.BOLD, 20));
-        submitButton.setBackground(new Color(255,209,84));
-        submitButton.setForeground(Color.BLACK);
-        submitButton.setBounds(250,400,100,50);
-
-        // addActionListener to button
-        //submitButton.addActionListener(inputText);
- 
-        panel.add(numberLabel);
-        panel.add(timerLabel);
-        panel.add(askLabel);
-        panel.add(inputText);
-        panel.add(submitButton);    
-
-        numberLabel.setText("" + randomInt);
-
-		// Countdown Timer
-		timerLabel.setText("00:03");
-		second = 3;
-		minute = 0;
-		countdownTimer();
-		timer.start();	
-
-    }
-
-    
-    private void  askNum(JPanel panel){
-        
-        JLabel askLabel = new JLabel("What was the number");
-        askLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 50));
-        askLabel.setForeground(Color.RED);
-        askLabel.setBounds(200,350,700,400);
-
- 
-        panel.add(askLabel);
-        
-        System.out.println("In ask  num");
-    }
-
-
-    private int getNum(int min, int max) {
-        // Generate a random value in int from min to max
-        return (int)Math.floor(Math.random() * (max - min + 1) + min);
+        currentNum = (int)Math.floor(Math.random() * (max - min + 1) + min);
+        numberLabel.setText("" + currentNum);
     }
 
     public void countdownTimer() {
@@ -158,17 +152,74 @@ public class NumberMemory extends JPanel{
 				}
 				if(minute==0 && second==0) {
 					timer.stop();
-                    
-                    numberLabel.setText("");
-                    timerLabel.setText("");
-                    askLabel.setText("What was the number?");
+
+                    askLabel.setVisible(true);
                     inputText.setVisible(true);
                     submitButton.setVisible(true);
+                    
+                    numberLabel.setVisible(false);
+                    timerLabel.setVisible(false);
 				}
 			}
 		});		
-
 	}	
-		
+	
+    public void resetTimer() {     
+        if (level < 10){
+            timerLabel.setText("00:0" + level);
+        }
+        else if (level < 60){
+                timerLabel.setText("00:0" + level);
+        }
+
+        second = level;
+        minute = 0;
+        countdownTimer();
+        timer.start();	
+    }
+
+    // if the button is pressed
+    public void actionPerformed(ActionEvent e)
+    {
+        String action = e.getActionCommand();
+
+        if (action.equals("submit")) {
+            // set the text of the label to the text of the field
+            submitNum = Integer.valueOf(inputText.getText());
+            
+            if (submitNum == currentNum) {
+                answerLabel.setText("Correct Answer. You passed level " + level);
+                nextButton.setText("Next");
+            }
+            else {
+                answerLabel.setText("Incorrect Answer. The number was " + currentNum + ". Your answer was " + submitNum + ". You failed at level " + level);
+                nextButton.setText("Try again");
+            }
+
+            answerLabel.setVisible(true);
+            nextButton.setVisible(true);
+
+            askLabel.setVisible(false);
+            inputText.setVisible(false);
+            submitButton.setVisible(false);
+        }
+        else if (action.equals("next")) {
+            level++;
+            setNum();
+
+            numberLabel.setVisible(true);
+            timerLabel.setText("");
+            timerLabel.setVisible(true);
+
+            answerLabel.setVisible(false);
+            askLabel.setVisible(false);
+            inputText.setVisible(false);
+            inputText.setText("");
+            submitButton.setVisible(false);
+            nextButton.setVisible(false);
+
+            resetTimer();
+        }
+    }
 
 }

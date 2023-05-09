@@ -28,9 +28,7 @@ public class NumberMemory extends JPanel implements ActionListener {
 
 
     public NumberMemory(){
-        
-        start();
-        
+        start(); 
     }
 
 
@@ -53,11 +51,12 @@ public class NumberMemory extends JPanel implements ActionListener {
         numberLabel.setBounds(0,100,frameWidth,400);
         setNum();
 
-        timerLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 50));
-        timerLabel.setForeground(Color.GRAY);
+        timerLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 30));
+        timerLabel.setForeground(Color.ORANGE);
         timerLabel.setBounds(0,250,frameWidth,400);
         
         
+        askLabel.setVisible(false);
         askLabel.setText("What was the number?");
         askLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 50));
         askLabel.setForeground(Color.WHITE);
@@ -67,7 +66,7 @@ public class NumberMemory extends JPanel implements ActionListener {
         inputText.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
         inputText.setForeground(Color.WHITE);
         inputText.setBackground(Color.GRAY);
-        inputText.setBounds(frameWidth/2-100,300,200,50);
+        inputText.setBounds(frameWidth/2-115,300,200,50);
 
         submitButton.setVisible(false);
         submitButton.setText("Submit");
@@ -75,7 +74,7 @@ public class NumberMemory extends JPanel implements ActionListener {
         submitButton.setFont(new Font("Helvetica Neue", Font.BOLD, 20));
         submitButton.setBackground(new Color(255,209,84));
         submitButton.setForeground(Color.BLACK);
-        submitButton.setBounds(frameWidth/2-50,400,100,50);
+        submitButton.setBounds(frameWidth/2-63,400,100,50);
         submitButton.addActionListener(this);
 
         answerLabel.setVisible(false);
@@ -108,7 +107,7 @@ public class NumberMemory extends JPanel implements ActionListener {
     private void setNum() {
 
         int min = 0; 
-        int max = 00;
+        int max = 0;
         
         switch (level) {
             case 1:
@@ -125,6 +124,18 @@ public class NumberMemory extends JPanel implements ActionListener {
                 break;
             case 5:
                 min = 10000; max = 99999;
+                break;
+            case 6:
+                min = 100000; max = 999999;
+                break;
+            case 7:
+                min = 1000000; max = 9999999;
+                break;
+            case 8:
+                min = 10000000; max = 99999999;
+                break;
+            case 9:
+                min = 100000000; max = 999999999;
                 break;
         }
         currentNum = (int)Math.floor(Math.random() * (max - min + 1) + min);
@@ -188,8 +199,14 @@ public class NumberMemory extends JPanel implements ActionListener {
             submitNum = Integer.valueOf(inputText.getText());
             
             if (submitNum == currentNum) {
-                answerLabel.setText("Correct Answer. You passed level " + level);
-                nextButton.setText("Next");
+                if (level == 9) {
+                    answerLabel.setText("Correct Answer. You passed level " + level + ". You have beat the human average!");
+                    nextButton.setText("Try again");
+                }
+                else {
+                    answerLabel.setText("Correct Answer. You passed level " + level);
+                    nextButton.setText("Next");
+                }
             }
             else {
                 answerLabel.setText("Incorrect Answer. The number was " + currentNum + ". Your answer was " + submitNum + ". You failed at level " + level);
@@ -204,7 +221,13 @@ public class NumberMemory extends JPanel implements ActionListener {
             submitButton.setVisible(false);
         }
         else if (action.equals("next")) {
-            level++;
+            if (nextButton.getText().equals("Next")){
+                level++;
+            }
+            if (nextButton.getText().equals("Try again")){
+                level = 1;
+            }
+
             setNum();
 
             numberLabel.setVisible(true);

@@ -246,30 +246,30 @@ public class SequenceMemory extends JPanel implements ActionListener {
         gameOverPanel.add(tryAgainButton, tryAgainButtonConstraints);
 
 
-        // JButton backButton = new JButton("Back to Menu");
-        // backButton.setFont(new Font("Helvetica Neue", Font.BOLD, 21));
-        // backButton.setPreferredSize(new Dimension(170,50));
-        // backButton.setBackground(new Color(0xaacfed));
-        // backButton.setForeground(new Color(0x242424));
-        // backButton.setFocusPainted(false);
-        // backButton.addActionListener(new ActionListener() {
-            
-        //     public void actionPerformed(ActionEvent e) {
-        //         Menu s = (Menu) SwingUtilities.getWindowAncestor(gameOverPanel);
-        //         gameOverPanel.setVisible(false);
-        //         s.getContentPane().removeAll();
-        //         s.getContentPane().add(new Menu());
-        //         s.revalidate();
-        //         s.repaint();
+        JButton backButton = new JButton("Back");
+        backButton.setFont(new Font("Helvetica Neue", Font.BOLD, 21));
+        backButton.setPreferredSize(new Dimension(170,50));
+        backButton.setBackground(new Color(255, 209, 84));
+        backButton.setForeground(new Color(0x242424));
+        backButton.setFocusPainted(false);
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                gameOverPanel.setVisible(false);
+                sequencePanel.setVisible(false);
+                Menu menu = (Menu) SwingUtilities.getWindowAncestor(SequenceMemory.this);
+                menu.getContentPane().removeAll();
+                menu.getContentPane().add(new Modes());
+                menu.revalidate();
+                menu.repaint();
                 
-        //     }
-        // });
-        // GridBagConstraints backButtonConstraints = new GridBagConstraints();
-        // backButtonConstraints.gridx = 0;
-        // backButtonConstraints.gridy = 3;
-        // backButtonConstraints.gridwidth = 1;
-        // backButtonConstraints.insets = new Insets(10, 0, 0, 0);
-        // gameOverPanel.add(backButton, backButtonConstraints);
+            }
+        });
+        GridBagConstraints backButtonConstraints = new GridBagConstraints();
+        backButtonConstraints.gridx = 0;
+        backButtonConstraints.gridy = 3;
+        backButtonConstraints.gridwidth = 1;
+        backButtonConstraints.insets = new Insets(10, 0, 0, 0);
+        gameOverPanel.add(backButton, backButtonConstraints);
 
     
         add(gameOverPanel); 

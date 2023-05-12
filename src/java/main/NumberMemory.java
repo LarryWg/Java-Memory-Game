@@ -14,6 +14,7 @@ public class NumberMemory extends JPanel implements ActionListener {
     JTextField inputText = new JTextField(20);
     JLabel answerLabel = new JLabel("", SwingConstants.CENTER);
     JButton nextButton = new JButton();
+    JButton backButton = new JButton();
 
     int frameWidth;
     int frameHeight;
@@ -23,8 +24,8 @@ public class NumberMemory extends JPanel implements ActionListener {
     String ddSecond, ddMinute;	
     DecimalFormat dFormat = new DecimalFormat("00");
     int level;
-    int currentNum;
-    int submitNum;
+    String currentNum;
+    String submitNum;
 
 
     public NumberMemory(){
@@ -78,7 +79,7 @@ public class NumberMemory extends JPanel implements ActionListener {
         submitButton.addActionListener(this);
 
         answerLabel.setVisible(false);
-        answerLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 30));
+        answerLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 20));
         answerLabel.setForeground(Color.WHITE);
         answerLabel.setBounds(0,-100,frameWidth,frameHeight);
 
@@ -86,60 +87,49 @@ public class NumberMemory extends JPanel implements ActionListener {
         nextButton.setText("Next");
         nextButton.setActionCommand("next");
         nextButton.setFont(new Font("Helvetica Neue", Font.BOLD, 20));
-        nextButton.setBackground(new Color(255,209,84));
-        nextButton.setForeground(Color.BLACK);
+        nextButton.setBackground(new Color(0xaacfed));
+        nextButton.setForeground(new Color(0x242424));
         nextButton.setBounds(frameWidth/2-75,400,150,50);
         nextButton.addActionListener(this);
- 
+        nextButton.setFocusPainted(false);
+        
+        backButton.setVisible(false);
+        backButton.setText("Back");
+        backButton.setActionCommand("back");
+        backButton.setFont(new Font("Helvetica Neue", Font.BOLD, 21));
+        backButton.setBackground(new Color(255,209,84));
+        backButton.setForeground(Color.BLACK);
+        backButton.setBounds(frameWidth/2-75,500,150,50);
+        backButton.addActionListener(this);
+  
         panel.add(numberLabel);
         panel.add(timerLabel);
         panel.add(askLabel);
         panel.add(inputText);
         panel.add(submitButton);    
         panel.add(answerLabel);    
-        panel.add(nextButton); 
+        panel.add(nextButton);   
+        panel.add(backButton); 
 
 		resetTimer();
     }
 
 
-    // Generate a random value in int from min to max
+    // Generate a random string of numbers with length equal to the current level
     private void setNum() {
 
-        int min = 0; 
-        int max = 0;
-        
-        switch (level) {
-            case 1:
-                min = 0; max = 9;
-                break;
-            case 2:
-                min = 10; max = 99;
-                break;
-            case 3:
-                min = 100; max = 999;
-                break;
-            case 4:
-                min = 1000; max = 9999;
-                break;
-            case 5:
-                min = 10000; max = 99999;
-                break;
-            case 6:
-                min = 100000; max = 999999;
-                break;
-            case 7:
-                min = 1000000; max = 9999999;
-                break;
-            case 8:
-                min = 10000000; max = 99999999;
-                break;
-            case 9:
-                min = 100000000; max = 999999999;
-                break;
+        int intNum;
+        String strNum;
+
+        strNum = "";
+
+        for (int i = 1; i <= level; i++) {
+            intNum = (int)Math.floor(Math.random() * 10);
+            strNum = strNum + intNum;
         }
-        currentNum = (int)Math.floor(Math.random() * (max - min + 1) + min);
-        numberLabel.setText("" + currentNum);
+        
+        currentNum = strNum;
+        numberLabel.setText(currentNum);
     }
 
     public void countdownTimer() {
@@ -167,6 +157,7 @@ public class NumberMemory extends JPanel implements ActionListener {
                     askLabel.setVisible(true);
                     inputText.setVisible(true);
                     submitButton.setVisible(true);
+                    inputText.requestFocus();
                     
                     numberLabel.setVisible(false);
                     timerLabel.setVisible(false);
@@ -196,21 +187,17 @@ public class NumberMemory extends JPanel implements ActionListener {
 
         if (action.equals("submit")) {
             // set the text of the label to the text of the field
-            submitNum = Integer.valueOf(inputText.getText());
+            submitNum = inputText.getText();
             
-            if (submitNum == currentNum) {
-                if (level == 9) {
-                    answerLabel.setText("Correct Answer. You passed level " + level + ". You have beat the human average!");
-                    nextButton.setText("Try again");
-                }
-                else {
-                    answerLabel.setText("Correct Answer. You passed level " + level);
-                    nextButton.setText("Next");
-                }
+            if (submitNum.equals(currentNum)) {
+                answerLabel.setText("Correct Answer. You passed level " + level);
+                nextButton.setText("Next");
+                backButton.setVisible(false);
             }
             else {
                 answerLabel.setText("Incorrect Answer. The number was " + currentNum + ". Your answer was " + submitNum + ". You failed at level " + level);
                 nextButton.setText("Try again");
+                backButton.setVisible(true);
             }
 
             answerLabel.setVisible(true);
@@ -240,8 +227,16 @@ public class NumberMemory extends JPanel implements ActionListener {
             inputText.setText("");
             submitButton.setVisible(false);
             nextButton.setVisible(false);
+            backButton.setVisible(false);
 
             resetTimer();
+        }
+        else if (action.equals("back")) {
+            Menu menu = (Menu) SwingUtilities.getWindowAncestor(NumberMemory.this);
+            menu.getContentPane().removeAll();
+            menu.getContentPane().add(new Modes());
+            menu.revalidate();
+            menu.repaint();
         }
     }
 

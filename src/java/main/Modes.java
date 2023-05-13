@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Displays the buttons to play number memory or sequence memory
 public class Modes extends JPanel {
     private JButton numberButton, sequenceButton;
 

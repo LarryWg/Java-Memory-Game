@@ -2,7 +2,7 @@ package src.java.main;
 
 import javax.swing.*;
 import java.awt.*;
-
+// Makes JPanels' corners round
 public class RoundedPanel extends JPanel {
     private int cornerRadius;
 
@@ -17,6 +17,7 @@ public class RoundedPanel extends JPanel {
         int width = getWidth();
         int height = getHeight();
 
+        // Used for smoother graphics
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, width, height, cornerRadius, cornerRadius);

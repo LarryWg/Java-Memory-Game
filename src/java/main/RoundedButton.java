@@ -2,7 +2,7 @@ package src.java.main;
 
 import javax.swing.*;
 import java.awt.*;
-
+// Makes button corners round
 public class RoundedButton extends JButton {
     private int cornerRadius;
 
@@ -29,7 +29,7 @@ public class RoundedButton extends JButton {
 
     @Override
     protected void paintBorder(Graphics g) {
-        // Do not paint the border
+        // Don't paint the border
     }
 }
 

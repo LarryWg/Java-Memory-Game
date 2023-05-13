@@ -15,8 +15,10 @@ public class SequenceMemory extends JPanel implements ActionListener {
 
     
     private JPanel sequencePanel;
+    // Stores the random pattern
     private ArrayList<Integer> pattern = new ArrayList<Integer>(); 
     private ArrayList<JButton> buttons = new ArrayList<JButton>();
+    // Stores button ids from 1 to 9 which will be randomly added to the pattern
     private ArrayList<Integer> buttonIds = new ArrayList<Integer>(); 
     private int buttonIndex;
     private boolean displayingPattern;
@@ -29,6 +31,7 @@ public class SequenceMemory extends JPanel implements ActionListener {
         displayingPattern = false;
         level = 1;
 
+        // Availble buttons
         buttonIds.add(1);
         buttonIds.add(2);
         buttonIds.add(3);
@@ -58,6 +61,7 @@ public class SequenceMemory extends JPanel implements ActionListener {
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(MARGIN+70, MARGIN, MARGIN-70, MARGIN);
 
+        // Creates the button in a 3x3
         for (int i = 0; i < 9; i++){
             JButton button = new RoundedButton("",20);
             button.setActionCommand(""+(i+1));
@@ -77,11 +81,13 @@ public class SequenceMemory extends JPanel implements ActionListener {
         setVisible(true);
         add(sequencePanel);
 
+        // Starts the game
         start();
         
         
     }
 
+    // Starts game and resets
     public void start(){
         level = 1;
         SwingUtilities.invokeLater(() -> {
@@ -94,17 +100,22 @@ public class SequenceMemory extends JPanel implements ActionListener {
         showPattern();
     }
 
+    // from the buttonIds add them to the random pattern
     public void addButtonToPattern(){
         Random r = new Random();
         int randomIndex = r.nextInt(buttonIds.size());
         pattern.add(buttonIds.get(randomIndex));
     }
 
+    // Displays the pattern
     public void showPattern() {
         displayingPattern = true;
+        // When the pattern is showing, disable the buttons
         for (JButton button : buttons) {
             button.setEnabled(false);
-        }        
+        }      
+        
+        // Flashes/changes colour of the buttons within the pattern
         buttonIndex = 0;
         int delay = 300; 
         int flashCount = pattern.size() * 2; 
@@ -136,12 +147,13 @@ public class SequenceMemory extends JPanel implements ActionListener {
         timer.start();
     }
 
+    // Checks if the user recreated the correct pattern
     public void buttonClicked(int buttonId){
         if(displayingPattern){
             return;
             
         }
-
+        //Expected button to be clicked according to the pattern
         int expectedButtonId = pattern.get(buttonIndex);
         JButton button = buttons.get(buttonId - 1);
         
@@ -173,7 +185,8 @@ public class SequenceMemory extends JPanel implements ActionListener {
             
         }
     }
-
+   
+    // Changes button colour to desired colour and changes it back to original
     public void changeButtonColour(JButton button, Color colour){
         Color originalColour = button.getBackground();
         button.setBackground(colour);
@@ -195,6 +208,7 @@ public class SequenceMemory extends JPanel implements ActionListener {
         buttonClicked(buttonId);
     }
 
+    // Game over
     public void gameOver(int level) {
         displayingPattern = false;
         sequencePanel.setVisible(false); 
@@ -213,6 +227,7 @@ public class SequenceMemory extends JPanel implements ActionListener {
         gameOverLabelConstraints.insets = new Insets(-100, 0, 50, 0);
         gameOverPanel.add(gameOverLabel, gameOverLabelConstraints);
     
+        // Displays which level user failed on
         GridBagConstraints levelLabelConstraints = new GridBagConstraints();
         JLabel levelLabel = new JLabel("Level " + level);
         levelLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 50));
@@ -272,7 +287,6 @@ public class SequenceMemory extends JPanel implements ActionListener {
         backButtonConstraints.insets = new Insets(10, 0, 0, 0);
         gameOverPanel.add(backButton, backButtonConstraints);
 
-    
         add(gameOverPanel); 
         gameOverPanel.setVisible(true); 
     }

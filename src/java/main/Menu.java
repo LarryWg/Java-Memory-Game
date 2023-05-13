@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Main menu
 public class Menu extends JFrame {
     private JButton playButton;
     private JButton instructionsButton;
@@ -77,16 +78,24 @@ public class Menu extends JFrame {
         });
 
         instructionPanel = new RoundedPanel(20);
-
         instructionPanel.setLayout(null);
         instructionPanel.setBounds(280, 720, 720, 420);
         instructionPanel.setBackground(new Color(0x010B3D));
-        JLabel instructionLabel = new JLabel("<html><center>Instructions<br>efaf.</center></html>");
+        // Everytime you want to do a back space add <br> after word
+        // Use <b>Text</b> to bold the text
+        // Use <font size='+1'>Text</font> to change the size of desired text
+        JLabel instructionLabel = new JLabel("<html><center><b><font size='+3'>Instructions</b></font></center></html>");
+        JLabel howtoplayLabel = new JLabel("<html><font size='+1'><b>Sequence Memory</font></b><br>Text<br><br><br><br><font size='+1'><b>Number Memory</b></font><br>Text</html>");
         instructionLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
+        howtoplayLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
+        howtoplayLabel.setForeground(Color.WHITE);
+        howtoplayLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        howtoplayLabel.setBounds(-200,125,720,220);
         instructionLabel.setForeground(Color.WHITE);
         instructionLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        instructionLabel.setBounds(0,0,720,220);
+        instructionLabel.setBounds(0,-20,720,220);
         instructionPanel.add(instructionLabel);
+        instructionPanel.add(howtoplayLabel);
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
         buttonPanel.setOpaque(false);
@@ -111,10 +120,10 @@ public class Menu extends JFrame {
     private void showInstructionsPanel(){
         instructionPanel.setVisible(true);
         animate();
-        
     }
 
     private void animate(){
+        // Calculates the Y-level of the instruction panel
         int frameHeight = getContentPane().getHeight();
         int panelHeight = instructionPanel.getHeight();
         panelY = (frameHeight - panelHeight)/ 2;
@@ -126,7 +135,8 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e){
                 if (currentY > panelY){
-                    currentY-=100;
+                    // moves the panel up by decreasing y-level
+                    currentY-=100; // Changes the speed at which the panel moves up
                     instructionPanel.setLocation(instructionPanel.getX(), currentY);
                     instructionPanel.revalidate();
                     instructionPanel.repaint();

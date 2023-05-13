@@ -69,6 +69,7 @@ public class NumberMemory extends JPanel implements ActionListener {
         inputText.setBackground(Color.GRAY);
         inputText.setBounds(frameWidth/2-115,300,200,50);
 
+        submitButton = new RoundedButton("",20);
         submitButton.setVisible(false);
         submitButton.setText("Submit");
         submitButton.setActionCommand("submit");
@@ -83,6 +84,7 @@ public class NumberMemory extends JPanel implements ActionListener {
         answerLabel.setForeground(Color.WHITE);
         answerLabel.setBounds(0,-100,frameWidth,frameHeight);
 
+        nextButton = new RoundedButton("", 20);
         nextButton.setVisible(false);
         nextButton.setText("Next");
         nextButton.setActionCommand("next");
@@ -93,6 +95,7 @@ public class NumberMemory extends JPanel implements ActionListener {
         nextButton.addActionListener(this);
         nextButton.setFocusPainted(false);
         
+        backButton = new RoundedButton("", 20);
         backButton.setVisible(false);
         backButton.setText("Back");
         backButton.setActionCommand("back");

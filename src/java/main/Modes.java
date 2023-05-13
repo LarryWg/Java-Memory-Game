@@ -16,7 +16,7 @@ public class Modes extends JPanel {
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setBounds(400, 100, 900, 150);
 
-        numberButton = new JButton("Number Memory");
+        numberButton = new RoundedButton("Number Memory",20);
         numberButton.setFont(new Font("Helvetica Neue", Font.BOLD, 29));
         numberButton.setBackground(new Color(255, 209, 84));
         numberButton.setForeground(new Color(0x242424));
@@ -33,7 +33,7 @@ public class Modes extends JPanel {
             }
         });
 
-        sequenceButton = new JButton("Sequence Memory");
+        sequenceButton = new RoundedButton("Sequence Memory",20);
         sequenceButton.setFont(new Font("Helvetica Neue", Font.BOLD, 29));
         sequenceButton.setBackground(new Color(255, 209, 84));
         sequenceButton.setForeground(new Color(0x242424));

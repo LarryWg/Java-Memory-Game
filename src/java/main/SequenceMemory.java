@@ -59,7 +59,7 @@ public class SequenceMemory extends JPanel implements ActionListener {
         c.insets = new Insets(MARGIN+70, MARGIN, MARGIN-70, MARGIN);
 
         for (int i = 0; i < 9; i++){
-            JButton button = new JButton("");
+            JButton button = new RoundedButton("",20);
             button.setActionCommand(""+(i+1));
             button.addActionListener(this);
             button.setPreferredSize(new Dimension(BUTTON_SIZE, BUTTON_SIZE));
@@ -170,6 +170,7 @@ public class SequenceMemory extends JPanel implements ActionListener {
         } else{
             changeButtonColour(button, Color.RED);
             gameOver(level);
+            
         }
     }
 
@@ -223,7 +224,7 @@ public class SequenceMemory extends JPanel implements ActionListener {
         gameOverPanel.add(levelLabel, levelLabelConstraints);
     
         GridBagConstraints tryAgainButtonConstraints = new GridBagConstraints();
-        JButton tryAgainButton = new JButton("Try Again");
+        JButton tryAgainButton = new RoundedButton("Try Again",20);
         tryAgainButton.setFont(new Font("Helvetica Neue", Font.BOLD, 21));
         tryAgainButton.setPreferredSize(new Dimension(170,50));
         tryAgainButton.setBackground(new Color(0xaacfed));
@@ -246,7 +247,7 @@ public class SequenceMemory extends JPanel implements ActionListener {
         gameOverPanel.add(tryAgainButton, tryAgainButtonConstraints);
 
 
-        JButton backButton = new JButton("Back");
+        JButton backButton = new RoundedButton("Back",20);
         backButton.setFont(new Font("Helvetica Neue", Font.BOLD, 21));
         backButton.setPreferredSize(new Dimension(170,50));
         backButton.setBackground(new Color(255, 209, 84));
@@ -275,6 +276,4 @@ public class SequenceMemory extends JPanel implements ActionListener {
         add(gameOverPanel); 
         gameOverPanel.setVisible(true); 
     }
-    
-
 }

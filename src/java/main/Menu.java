@@ -59,7 +59,7 @@ public class Menu extends JFrame {
 
             }
         });
-        instructionsButton = new RoundedButton("Instructions",20);
+        instructionsButton = new RoundedButton("How to Play",20);
         instructionsButton.setFont(new Font("Helvetica Neue", Font.BOLD, 20));
         instructionsButton.setBackground(new Color(0xaacfed));
         instructionsButton.setForeground(new Color(0x242424));
@@ -85,12 +85,12 @@ public class Menu extends JFrame {
         // Use <b>Text</b> to bold the text
         // Use <font size='+1'>Text</font> to change the size of desired text
         JLabel instructionLabel = new JLabel("<html><center><b><font size='+3'>Instructions</b></font></center></html>");
-        JLabel howtoplayLabel = new JLabel("<html><font size='+1'><b>Sequence Memory</font></b><br>Text<br><br><br><br><font size='+1'><b>Number Memory</b></font><br>Text</html>");
+        JLabel howtoplayLabel = new JLabel("<html><font size='+1'><b>Sequence Memory</font></b><br>Memorize the sequence of the pattern shown and recreate the pattern in order.<br>The pattern gets longer as you reach higher levels.<br>One chance only...<br><br><font size='+1'><b>Number Memory</b></font><br>Memorize the numbers displayed on the screen and write it in the text box.<br>The number will increase by one digit evertime you get the correct number.<br>How good is your memory?</html>");
         instructionLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
         howtoplayLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
         howtoplayLabel.setForeground(Color.WHITE);
         howtoplayLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        howtoplayLabel.setBounds(-200,125,720,220);
+        howtoplayLabel.setBounds(0,125,720,220);
         instructionLabel.setForeground(Color.WHITE);
         instructionLabel.setHorizontalAlignment(SwingConstants.CENTER);
         instructionLabel.setBounds(0,-20,720,220);

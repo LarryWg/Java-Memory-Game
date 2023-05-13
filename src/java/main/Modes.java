@@ -11,7 +11,7 @@ public class Modes extends JPanel {
 
     public Modes(){
         setSize(1280,720);
-
+        JPanel modesPanel = new JPanel(null);
         JLabel titleLabel = new JLabel("Modes");
         titleLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 150));
         titleLabel.setForeground(Color.WHITE);
@@ -50,9 +50,7 @@ public class Modes extends JPanel {
                 menu.repaint();
             }
         });
-        
-
-        JPanel modesPanel = new JPanel(null);
+       
         modesPanel.setOpaque(false);
         modesPanel.add(titleLabel);
         modesPanel.add(numberButton);

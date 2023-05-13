@@ -68,6 +68,7 @@ public class NumberMemory extends JPanel implements ActionListener {
         inputText.setForeground(Color.WHITE);
         inputText.setBackground(Color.GRAY);
         inputText.setBounds(frameWidth/2-115,300,200,50);
+        inputText.addActionListener(this);
 
         submitButton = new RoundedButton("",20);
         submitButton.setVisible(false);
@@ -188,7 +189,7 @@ public class NumberMemory extends JPanel implements ActionListener {
     {
         String action = e.getActionCommand();
 
-        if (action.equals("submit")) {
+        if (action.equals("submit") || e.getSource() == inputText) {
             // set the text of the label to the text of the field
             submitNum = inputText.getText();
             
@@ -210,7 +211,7 @@ public class NumberMemory extends JPanel implements ActionListener {
             inputText.setVisible(false);
             submitButton.setVisible(false);
         }
-        else if (action.equals("next")) {
+        else if (action.equals("next")||e.getSource()==nextButton) {
             if (nextButton.getText().equals("Next")){
                 level++;
             }

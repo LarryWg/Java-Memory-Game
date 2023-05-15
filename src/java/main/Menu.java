@@ -48,7 +48,7 @@ public class Menu extends JFrame {
         closeButton.setForeground(new Color(0x242424));
         closeButton.setFocusPainted(false);
         closeButton.setVisible(false);
-        closeButton.setBounds(540,520,200,60);
+        closeButton.setBounds(540,1075,200,60);
         closeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
@@ -122,30 +122,35 @@ public class Menu extends JFrame {
         animate();
     }
 
-    private void animate(){
-        // Calculates the Y-level of the instruction panel
+    private void animate() {
         int frameHeight = getContentPane().getHeight();
         int panelHeight = instructionPanel.getHeight();
-        panelY = (frameHeight - panelHeight)/ 2;
-
-        Timer timer = new Timer(10, null);
+        panelY = (frameHeight - panelHeight) / 2;
+        instructionPanel.setLocation(instructionPanel.getX(), frameHeight);
+        closeButton.setLocation(closeButton.getX(), 1075);
+    
+        int initialPanelY = instructionPanel.getY(); // initial Y-coordinate of the panel
+        int initialButtonY = closeButton.getY(); // initial Y-coordinate of the close button
+    
+        Timer timer = new Timer(5, null);
         timer.addActionListener(new ActionListener() {
-            int currentY = instructionPanel.getY();
-
+            int currentY = frameHeight;
+    
             @Override
-            public void actionPerformed(ActionEvent e){
-                if (currentY > panelY){
-                    // moves the panel up by decreasing y-level
-                    currentY-=100; // Changes the speed at which the panel moves up
-                    instructionPanel.setLocation(instructionPanel.getX(), currentY);
+            public void actionPerformed(ActionEvent e) {
+                if (currentY > panelY) {
+                    currentY -= 15;
+                    int changeInY = initialPanelY - currentY; // Calculate the change in Y-coordinate of the panel
+                    int panelY = initialPanelY - changeInY; // Calculate the updated Y-coordinate of the panel
+                    int buttonY = initialButtonY - changeInY; // Calculate the updated Y-coordinate of the close button
+                    instructionPanel.setLocation(instructionPanel.getX(), panelY);
+                    closeButton.setLocation(closeButton.getX(), buttonY); // Update the close button's position
                     instructionPanel.revalidate();
                     instructionPanel.repaint();
-
-                }else{
+                } else {
                     timer.stop();
                 }
             }
-            
         });
         timer.start();
     }

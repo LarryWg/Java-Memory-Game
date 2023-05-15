@@ -211,7 +211,7 @@ public class NumberMemory extends JPanel implements ActionListener {
             inputText.setVisible(false);
             submitButton.setVisible(false);
         }
-        else if (action.equals("next")||e.getSource()==nextButton) {
+        else if (action.equals("next")) {
             if (nextButton.getText().equals("Next")){
                 level++;
             }

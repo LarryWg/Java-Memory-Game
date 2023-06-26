@@ -1,0 +1,72 @@
+Author: Larry Wang
+Date/Time: Thu, 18 May 2023 13:07:19 -0400
+Commit: Planning
+Author: Larry Wang
+Date/Time: Mon, 15 May 2023 09:28:29 -0400
+Commit: Fixed instruction animation
+Author: Larry Wang
+Date/Time: Sat, 13 May 2023 18:54:11 -0400
+Commit: Hit enter key to submit
+Author: Larry Wang
+Date/Time: Sat, 13 May 2023 18:34:32 -0400
+Commit: instructions
+Author: Larry Wang
+Date/Time: Sat, 13 May 2023 18:33:35 -0400
+Commit: Instructions
+Author: Larry Wang
+Date/Time: Sat, 13 May 2023 10:54:47 -0400
+Commit: Added Instructions
+Author: Larry Wang
+Date/Time: Fri, 12 May 2023 23:30:31 -0400
+Commit: Added rounded corners for panels and buttons
+Author: GitHub
+Date/Time: Fri, 12 May 2023 01:13:12 -0400
+Commit: NumberMemory.java
+Author: Larry Wang
+Date/Time: Tue, 9 May 2023 11:55:17 -0400
+Commit: Back button to modes panel
+Author: Larry Wang
+Date/Time: Tue, 9 May 2023 08:21:24 -0400
+Commit: Game over screen
+Author: GitHub
+Date/Time: Tue, 9 May 2023 02:01:55 -0400
+Commit: Demo version NumberMemory.java
+Author: GitHub
+Date/Time: Tue, 9 May 2023 01:23:36 -0400
+Commit: Update NumberMemory.java
+Author: GitHub
+Date/Time: Mon, 8 May 2023 03:59:45 -0400
+Commit: Update NumberMemory.java
+Author: Larry Wang
+Date/Time: Tue, 2 May 2023 12:25:24 -0400
+Commit: renamed
+Author: Larry Wang
+Date/Time: Mon, 1 May 2023 22:00:57 -0400
+Commit: Made everything into one frame
+Author: Larry Wang
+Date/Time: Mon, 1 May 2023 13:39:28 -0400
+Commit: A
+Author: Larry Wang
+Date/Time: Fri, 28 Apr 2023 11:24:17 -0400
+Commit: Optimized
+Author: Larry Wang
+Date/Time: Thu, 27 Apr 2023 19:58:27 -0400
+Commit: Made optimizations
+Author: Larry Wang
+Date/Time: Wed, 26 Apr 2023 22:54:13 -0400
+Commit: Added functions
+Author: Larry Wang
+Date/Time: Tue, 25 Apr 2023 22:54:34 -0400
+Commit: Working sequence memory button
+Author: Larry Wang
+Date/Time: Tue, 25 Apr 2023 22:52:42 -0400
+Commit: Created buttons arranged in 3x3 grid
+Author: Larry Wang
+Date/Time: Mon, 24 Apr 2023 22:49:27 -0400
+Commit: Created Modes page
+Author: Larry Wang
+Date/Time: Mon, 24 Apr 2023 19:21:54 -0400
+Commit: Created main menu page
+Author: Larry Wang
+Date/Time: Sun, 23 Apr 2023 17:56:30 -0400
+Commit: .

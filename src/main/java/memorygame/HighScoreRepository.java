@@ -59,25 +59,67 @@ public class HighScoreRepository {
         return DriverManager.getConnection("jdbc:sqlite:" + dbPath);
     }
 
+    /**
+     * Saves a score only if it is the player's new high for this game mode.
+     * Keeps at most one record per player per mode (their highest score).
+     */
     public void saveScore(String gameMode, String playerName, int score) {
         String name = (playerName == null || playerName.isBlank()) ? "Anonymous" : playerName.trim();
-        String sql = "INSERT INTO " + TABLE_NAME + " (game_mode, player_name, score, level) VALUES (?, ?, ?, ?)";
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, gameMode);
-            pstmt.setString(2, name);
-            pstmt.setInt(3, score);
-            pstmt.setInt(4, score);
-            pstmt.executeUpdate();
+        int currentBest = getBestScoreForPlayer(gameMode, name);
+        if (score <= currentBest) {
+            return;
+        }
+        try (Connection conn = getConnection()) {
+            if (currentBest >= 0) {
+                String deleteSql = "DELETE FROM " + TABLE_NAME + " WHERE game_mode = ? AND player_name = ?";
+                try (PreparedStatement del = conn.prepareStatement(deleteSql)) {
+                    del.setString(1, gameMode);
+                    del.setString(2, name);
+                    del.executeUpdate();
+                }
+            }
+            String insertSql = "INSERT INTO " + TABLE_NAME + " (game_mode, player_name, score, level) VALUES (?, ?, ?, ?)";
+            try (PreparedStatement ins = conn.prepareStatement(insertSql)) {
+                ins.setString(1, gameMode);
+                ins.setString(2, name);
+                ins.setInt(3, score);
+                ins.setInt(4, score);
+                ins.executeUpdate();
+            }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to save score", e);
         }
     }
 
+    private int getBestScoreForPlayer(String gameMode, String playerName) {
+        String sql = "SELECT MAX(score) AS best FROM " + TABLE_NAME + " WHERE game_mode = ? AND player_name = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, gameMode);
+            pstmt.setString(2, playerName);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next() && rs.getObject("best") != null) {
+                    return rs.getInt("best");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to get best score for player", e);
+        }
+        return -1;
+    }
+
+    /**
+     * Returns the top scores per player: each player appears at most once,
+     * with their highest score for the given game mode.
+     */
     public List<HighScore> getTopScores(String gameMode, int limit) {
         String sql = """
-            SELECT game_mode, player_name, score, level, created_at
-            FROM %s WHERE game_mode = ? ORDER BY score DESC LIMIT ?
+            SELECT game_mode, player_name, MAX(score) AS score, MAX(level) AS level, MAX(created_at) AS created_at
+            FROM %s
+            WHERE game_mode = ?
+            GROUP BY game_mode, player_name
+            ORDER BY score DESC
+            LIMIT ?
             """.formatted(TABLE_NAME);
 
         List<HighScore> scores = new ArrayList<>();

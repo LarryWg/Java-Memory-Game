@@ -1,6 +1,6 @@
 # Memory Game
 
-Java/Swing desktop memory game with Number Memory and Sequence Memory modes. High scores are persisted to SQLite.
+A desktop remake of the [Human Benchmark](https://humanbenchmark.com/) memory tests. Java/Swing app with Number Memory and Sequence Memory modes; high scores are persisted to SQLite.
 
 ## Tech Stack
 
